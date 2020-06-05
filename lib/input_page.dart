@@ -7,6 +7,7 @@ import 'result_page.dart';
 import 'components/bottom_button.dart';
 import 'components/round_icon_button.dart';
 import 'calculator_brain.dart';
+import 'dart:math';
 
 
 
@@ -21,6 +22,8 @@ class _InputPageState extends State<InputPage> {
   int height = 180;
   int weight = 60;
   int age = 10;
+  double impHeightInch;
+  double impHeightFt;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +34,29 @@ class _InputPageState extends State<InputPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
+//          Expanded(
+//            child: Row(
+//              children: <Widget>[
+//                Expanded(
+//                  child: ReusableCard(
+//                    colour: kInactiveCardColor,
+//                    cardChild: IconContent(
+//                      genderIcon: FontAwesomeIcons.ellipsisH, gender: 'Metric',
+//                    ),
+//                  ),
+//                ),
+//                Expanded(
+//                  child: ReusableCard(
+//                    colour: kInactiveCardColor,
+//                    cardChild: IconContent(
+//                      genderIcon: FontAwesomeIcons.ellipsisV, gender: 'Imperial',
+//                    ),
+//                  ),
+//                ),
+//              ],
+//            ),
+//          ),
           Expanded(
-            flex: 1,
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -65,52 +89,63 @@ class _InputPageState extends State<InputPage> {
             ),
           ),
           Expanded(
-            child: ReusableCard(
-              colour: kActiveCardColor,
-            cardChild: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-              Text('HEIGHT',
-                style: kLabelTextStyle,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                children: <Widget>[
-                  Text(
-                    height.toString(),
-                    style: kNumberTextStyle,
-                  ),
-                  Text(
-                      'cm',
-                    style: kLabelTextStyle,
-                  )
-                ],
-              ),
-                SliderTheme(
-                  data: SliderTheme.of(context).copyWith(
-                    activeTrackColor: Colors.white,
-                    inactiveTrackColor: Color(0xFF8D8E98),
-                    thumbColor: Color(0xFFEB1555),
-                    overlayColor: Color(0x29EB1555),
-                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                    overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
-                  ),
-                  child: Slider(
-                    value: height.toDouble(),
-                    min: 120.0,
-                    max: 220.0,
-                    onChanged: (double newValue){
-                      setState(() {
-                        height = newValue.round();
-                      });
-                    },
+            child: GestureDetector(
+              onDoubleTap: (){
+                setState(() {
+               kHUnitLabel = kHUnitLabel == kMetHeightUnit ? kImpHeightUnit : kMetHeightUnit;
+               kHUnitLabel = kHUnitLabel == kMetHeightUnit ?
+               impHeightInch = height * 0.3937;
+                impHeightFt = impHeightInch / 12;
 
-                  ),
+                });
+              },
+              child: ReusableCard(
+                colour: kActiveCardColor,
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                Text('HEIGHT',
+                  style: kLabelTextStyle,
                 ),
-            ],
-            ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: <Widget>[
+                    Text(
+                      height.toString(),
+                      style: kNumberTextStyle,
+                    ),
+                    Text(
+                        kHUnitLabel,
+                      style: kLabelTextStyle,
+                    )
+                  ],
+                ),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: Color(0xFF8D8E98),
+                      thumbColor: Color(0xFFEB1555),
+                      overlayColor: Color(0x29EB1555),
+                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
+                    ),
+                    child: Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      onChanged: (double newValue){
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      },
+
+                    ),
+                  ),
+              ],
+              ),
+              ),
             ),
           ),
           Expanded(

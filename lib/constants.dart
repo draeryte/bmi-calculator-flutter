@@ -12,6 +12,22 @@ const kNumberTextStyle = TextStyle(
 const kBottomContainerHeight = 80.0;
 const kActiveCardColor = Color(0xFF1D1E33);
 const kInactiveCardColor = Color(0xFF111328);
+const String kMetHeightUnit = 'cm';
+const String kImpHeightUnit = 'feet';
+const String kMetWeightUnit = 'kg';
+const String kImpWeightUnit = 'lbs';
+ String kHUnitLabel = 'cm';
+ String kWUnitLabel = 'kgs';
+
+enum HeightUnit{
+  cm,
+  ft,
+}
+
+enum WeightUnit{
+  kgs,
+  lbs,
+}
 
 enum Gender {
   male,
